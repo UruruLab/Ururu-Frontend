@@ -6,6 +6,10 @@ export interface UserInfo {
   nickname: string;
   profile_image: string | null;
   user_type: 'MEMBER' | 'SELLER';
+  member_name: string;
+  points: number;
+  skin_type: string;
+  skin_tone: string;
 }
 
 export interface AuthResponse {

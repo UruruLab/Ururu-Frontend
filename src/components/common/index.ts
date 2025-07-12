@@ -11,6 +11,8 @@ export { PointEarnMethodAccordion } from './PointEarnMethodAccordion';
 export { PointHistorySection } from './PointHistorySection';
 export { PageHeader } from './PageHeader';
 export { EmptyState } from './EmptyState';
+export { ErrorDialog } from './ErrorDialog';
+export { SuccessDialog } from './SuccessDialog';
 export {
   LoadingSkeleton,
   CardSkeleton,

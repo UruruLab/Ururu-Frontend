@@ -50,6 +50,7 @@ export interface BeautyProfileFormData {
   minPrice: string;
   maxPrice: string;
   productRequest: string;
+  allergyInput?: string; // 알러지 입력값
 }
 
 // 약관 동의 데이터 타입 정의

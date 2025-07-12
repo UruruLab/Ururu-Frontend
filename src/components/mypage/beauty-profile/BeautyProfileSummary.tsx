@@ -32,16 +32,22 @@ export function BeautyProfileSummary({ summaryInfo }: BeautyProfileSummaryProps)
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-sm text-text-300">피부 타입</span>
-              <span className="text-sm font-medium text-text-100">{summaryInfo.skinType}</span>
+              <span className="text-sm font-medium text-text-100">
+                {summaryInfo.skinType || '없음'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-text-300">피부 톤</span>
-              <span className="text-sm font-medium text-text-100">{summaryInfo.skinTone}</span>
+              <span className="text-sm font-medium text-text-100">
+                {summaryInfo.skinTone || '없음'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-text-300">피부 고민</span>
               <span className="text-sm font-medium text-text-100">
-                {summaryInfo.skinConcerns?.slice(0, 3).join(', ')}
+                {summaryInfo.skinConcerns && summaryInfo.skinConcerns.length > 0
+                  ? summaryInfo.skinConcerns.slice(0, 3).join(', ')
+                  : '없음'}
               </span>
             </div>
           </div>
@@ -57,13 +63,21 @@ export function BeautyProfileSummary({ summaryInfo }: BeautyProfileSummaryProps)
             <div className="flex justify-between">
               <span className="text-sm text-text-300">관심 카테고리</span>
               <span className="text-sm font-medium text-text-100">
-                {summaryInfo.interests?.slice(0, 2).join(', ')}
-                {summaryInfo.interests && summaryInfo.interests.length > 2 && ' 외'}
+                {summaryInfo.interests && summaryInfo.interests.length > 0
+                  ? (() => {
+                      const displayInterests = summaryInfo.interests.slice(0, 2).join(', ');
+                      return summaryInfo.interests.length > 2
+                        ? `${displayInterests} 외`
+                        : displayInterests;
+                    })()
+                  : '없음'}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-text-300">선호 가격대</span>
-              <span className="text-sm font-medium text-text-100">{summaryInfo.priceRange}</span>
+              <span className="text-sm font-medium text-text-100">
+                {summaryInfo.priceRange || '없음'}
+              </span>
             </div>
           </div>
         </div>

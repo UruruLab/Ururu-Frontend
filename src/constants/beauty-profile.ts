@@ -6,24 +6,24 @@ export const BEAUTY_PROFILE_CONSTANTS = {
 
 // 피부 타입 옵션
 export const SKIN_TYPE_OPTIONS = [
-  { label: '지성', value: 'oily' },
-  { label: '건성', value: 'dry' },
-  { label: '복합성', value: 'combination' },
-  { label: '민감성', value: 'sensitive' },
-  { label: '약건성', value: 'slightly_dry' },
-  { label: '트러블성', value: 'trouble' },
-  { label: '중성', value: 'normal' },
+  { label: '지성', value: 'OILY' },
+  { label: '건성', value: 'DRY' },
+  { label: '복합성', value: 'COMBINATION' },
+  { label: '민감성', value: 'SENSITIVE' },
+  { label: '악건성', value: 'VERY_DRY' },
+  { label: '트러블성', value: 'TROUBLE' },
+  { label: '중성', value: 'NEUTRAL' },
 ] as const;
 
 // 피부 톤 옵션
 export const SKIN_TONE_OPTIONS = [
-  { label: '쿨톤', value: 'cool' },
-  { label: '웜톤', value: 'warm' },
-  { label: '봄웜톤', value: 'spring_warm' },
-  { label: '여름쿨톤', value: 'summer_cool' },
-  { label: '가을웜톤', value: 'autumn_warm' },
-  { label: '겨울쿨톤', value: 'winter_cool' },
-  { label: '뉴트럴톤', value: 'neutral' },
+  { label: '쿨톤', value: 'COOL' },
+  { label: '웜톤', value: 'WARM' },
+  { label: '봄웜톤', value: 'SPRING_WARM' },
+  { label: '여름쿨톤', value: 'SUMMER_COOL' },
+  { label: '가을웜톤', value: 'AUTUMN_WARM' },
+  { label: '겨울쿨톤', value: 'WINTER_COOL' },
+  { label: '뉴트럴톤', value: 'NEUTRAL' },
 ] as const;
 
 // 피부 고민 옵션
