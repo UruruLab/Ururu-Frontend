@@ -356,12 +356,12 @@ export function ProductRegistration({ categories, tags }: ProductRegistrationPro
                     <div className="mt-2 flex items-center gap-2 text-sm text-gray-700">
                       <span>선택된 카테고리:</span>
                       {formData.categoryMain && (
-                        <span className="flex items-center gap-1 rounded bg-gray-100 px-2 py-1">
+                        <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
                           {formData.categoryMain}
                           <button
                             type="button"
                             onClick={() => handleRemoveCategory('main')}
-                            className="ml-1"
+                            className="text-primary-500 hover:text-primary-700 ml-1"
                           >
                             <X className="h-3 w-3" />
                           </button>
@@ -370,12 +370,12 @@ export function ProductRegistration({ categories, tags }: ProductRegistrationPro
                       {formData.categoryMiddle && (
                         <>
                           <span className="mx-1">&gt;</span>
-                          <span className="flex items-center gap-1 rounded bg-gray-100 px-2 py-1">
+                          <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
                             {formData.categoryMiddle}
                             <button
                               type="button"
                               onClick={() => handleRemoveCategory('middle')}
-                              className="ml-1"
+                              className="text-primary-500 hover:text-primary-700 ml-1"
                             >
                               <X className="h-3 w-3" />
                             </button>
@@ -385,12 +385,12 @@ export function ProductRegistration({ categories, tags }: ProductRegistrationPro
                       {formData.categorySub && (
                         <>
                           <span className="mx-1">&gt;</span>
-                          <span className="flex items-center gap-1 rounded bg-gray-100 px-2 py-1">
+                          <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
                             {formData.categorySub}
                             <button
                               type="button"
                               onClick={() => handleRemoveCategory('sub')}
-                              className="ml-1"
+                              className="text-primary-500 hover:text-primary-700 ml-1"
                             >
                               <X className="h-3 w-3" />
                             </button>

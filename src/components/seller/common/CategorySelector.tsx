@@ -153,10 +153,24 @@ export function CategorySelector({
       {selectedCategory.mainCategory && (
         <div className="flex items-center space-x-2 text-sm text-gray-600">
           <span>선택된 카테고리:</span>
-          <span className="font-medium">
+          <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
             {selectedCategory.mainCategory.label}
-            {selectedCategory.subCategory && ` > ${selectedCategory.subCategory.label}`}
-            {selectedCategory.detailCategory && ` > ${selectedCategory.detailCategory.label}`}
+            {selectedCategory.subCategory && (
+              <>
+                <span className="mx-1">&gt;</span>
+                <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
+                  {selectedCategory.subCategory.label}
+                  {selectedCategory.detailCategory && (
+                    <>
+                      <span className="mx-1">&gt;</span>
+                      <span className="text-primary-700 flex items-center gap-1 rounded bg-primary-100 px-2 py-1">
+                        {selectedCategory.detailCategory.label}
+                      </span>
+                    </>
+                  )}
+                </span>
+              </>
+            )}
           </span>
         </div>
       )}

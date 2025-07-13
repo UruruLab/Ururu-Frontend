@@ -64,12 +64,12 @@ export function TagSelector({
       )}
       {/* 선택된 태그 표시 */}
       {selectedTags.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2">
-          <span className="text-xs text-gray-600">선택된 태그:</span>
+        <div className="mt-2 flex items-center gap-2 text-sm text-gray-700">
+          <span>선택된 태그:</span>
           {selectedTags.map((tag) => (
             <span
               key={tag.value}
-              className="text-primary-700 inline-flex items-center gap-1 rounded-full bg-primary-100 px-2 py-1 text-xs"
+              className="text-primary-700 flex items-center gap-1 rounded-md bg-primary-100 px-2 py-1"
             >
               {tag.label}
               <button
