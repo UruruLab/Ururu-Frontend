@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import { AddressFormFields } from '@/components/mypage/address/AddressFormFields';
 import { addressListData, mockAddressData } from '@/data/address';
+import { usePostcode } from '@/hooks/usePostcode';
 
 interface DeliveryAddressProps {
   deliveryType: 'existing' | 'new';
@@ -19,9 +20,9 @@ interface DeliveryAddressProps {
     addressName: string;
     isDefault: boolean;
     phone: string;
-    zipcode: string;
-    addressRoad: string;
-    addressJibun: string;
+    zonecode: string;
+    address1: string;
+    address2: string;
     addressDetail: string;
   };
   onDeliveryTypeChange: (type: 'existing' | 'new') => void;
@@ -37,6 +38,16 @@ export function DeliveryAddress({
   onAddressIdChange,
   onNewAddressChange,
 }: DeliveryAddressProps) {
+  // 우편번호 검색 기능
+  const handlePostcodeComplete = (data: any) => {
+    onNewAddressChange('zonecode', data.zonecode);
+    onNewAddressChange('address1', data.address);
+  };
+
+  const { openPostcode } = usePostcode({
+    onComplete: handlePostcodeComplete,
+  });
+
   return (
     <Card className="rounded-2xl border-0 bg-bg-100 shadow-none">
       <CardContent className="px-0 py-4 md:py-6">

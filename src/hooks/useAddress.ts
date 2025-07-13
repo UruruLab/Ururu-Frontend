@@ -12,9 +12,9 @@ export const useAddress = () => {
     addressName: '',
     isDefault: false,
     phone: '',
-    zipcode: '',
-    addressRoad: '',
-    addressJibun: '',
+    zonecode: '',
+    address1: '',
+    address2: '',
     addressDetail: '',
   });
 
@@ -47,9 +47,9 @@ export const useAddress = () => {
       addressName: '',
       isDefault: false,
       phone: '',
-      zipcode: '',
-      addressRoad: '',
-      addressJibun: '',
+      zonecode: '',
+      address1: '',
+      address2: '',
       addressDetail: '',
     });
   }, []);

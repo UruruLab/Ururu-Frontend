@@ -21,9 +21,9 @@ export function AddressCard({ address }: AddressCardProps) {
             </span>
           )}
         </div>
-        <div className="mb-1 text-xs text-text-300">({address.zipcode})</div>
-        <div className="mb-1 text-sm text-text-200">도로명 : {address.addressRoad}</div>
-        <div className="mb-1 text-sm text-text-200">지번 : {address.addressJibun}</div>
+        <div className="mb-1 text-xs text-text-300">({address.zonecode})</div>
+        <div className="mb-1 text-sm text-text-200">기본주소 : {address.address1}</div>
+        <div className="mb-1 text-sm text-text-200">상세주소 : {address.address2}</div>
         <div className="mb-4 text-sm text-text-200">{address.phone}</div>
         <Link href={`/mypage/address/register?id=${address.id}`}>
           <Button className={FORM_STYLES.button.pinkOutline + ' h-12 w-full rounded-lg'}>

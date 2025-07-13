@@ -27,7 +27,9 @@ export async function fetchProductMetadata(): Promise<ProductMetadataResponse> {
     },
   );
   if (!res.ok) {
-    throw new Error(`상품 메타데이터 조회에 실패했습니다. status: ${res.status}`);
+    const error = new Error(`상품 메타데이터 조회에 실패했습니다. status: ${res.status}`);
+    (error as any).status = res.status;
+    throw error;
   }
   const data = await res.json();
   if (!data.success) {

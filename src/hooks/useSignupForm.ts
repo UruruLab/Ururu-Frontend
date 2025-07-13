@@ -97,6 +97,12 @@ export const useSignupForm = () => {
       signupFormData.businessNumber &&
       signupFormData.phone &&
       signupFormData.mailOrderNumber &&
+      signupFormData.zonecode &&
+      signupFormData.zonecode.trim() &&
+      signupFormData.address1 &&
+      signupFormData.address1.trim() &&
+      signupFormData.address2 &&
+      signupFormData.address2.trim() &&
       agreements.terms &&
       agreements.privacy
     );

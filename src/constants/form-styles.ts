@@ -48,7 +48,7 @@ export const FORM_STYLES = {
   },
 
   // 우편번호 입력 필드 스타일
-  zipcode: {
+  zonecode: {
     display:
       'flex h-12 min-w-0 flex-1 items-center rounded-lg border border-bg-300 bg-bg-200 px-4 text-sm text-text-300',
   },

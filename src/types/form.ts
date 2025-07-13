@@ -8,10 +8,9 @@ export type FormFieldType =
   | 'ceo'
   | 'businessNumber'
   | 'phone'
-  | 'zipcode'
-  | 'addressRoad'
-  | 'addressJibun'
-  | 'addressDetail'
+  | 'zonecode'
+  | 'address1'
+  | 'address2'
   | 'mailOrderNumber';
 
 // 약관 동의 타입 정의
@@ -33,10 +32,9 @@ export interface SignupFormData {
   ceo: string;
   businessNumber: string;
   phone: string;
-  zipcode: string;
-  addressRoad: string;
-  addressJibun: string;
-  addressDetail: string;
+  zonecode: string;
+  address1: string;
+  address2: string;
   mailOrderNumber: string;
 }
 

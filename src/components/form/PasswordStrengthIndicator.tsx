@@ -36,7 +36,7 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
       check: () => checkPasswordHasNumber(password),
     },
     {
-      label: '특수문자 포함',
+      label: '특수문자 포함 (@$!%*#?&)',
       check: () => checkPasswordHasSpecial(password),
     },
   ];

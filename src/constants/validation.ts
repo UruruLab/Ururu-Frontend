@@ -4,7 +4,7 @@ export const VALIDATION_CONSTANTS = {
   PASSWORD: {
     MIN_LENGTH: 8,
     MAX_LENGTH: 50,
-    SPECIAL_CHARS: /[!@#$%^&*(),.?":{}|<>]/,
+    SPECIAL_CHARS: /[@$!%*#?&]/,
     LETTERS: /[a-zA-Z]/,
     NUMBERS: /[0-9]/,
   },
