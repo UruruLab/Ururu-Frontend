@@ -58,3 +58,32 @@ export const calculateDiscountRate = (originalPrice: number, currentPrice: numbe
   if (originalPrice <= 0) return 0;
   return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
 };
+
+// 카테고리 타입
+export interface Category {
+  value: number;
+  label: string;
+  children: Category[];
+}
+
+// 태그 타입
+export interface Tag {
+  value: number;
+  label: string;
+}
+
+// 상품 메타데이터 응답 타입
+export interface ProductMetadataResponse {
+  categories: Category[];
+  tags: Tag[];
+}
+
+// 선택된 카테고리 타입
+export interface SelectedCategory {
+  mainCategory: Category | null;
+  subCategory: Category | null;
+  detailCategory: Category | null;
+}
+
+// 선택된 태그 타입 (최대 3개)
+export type SelectedTags = Tag[];

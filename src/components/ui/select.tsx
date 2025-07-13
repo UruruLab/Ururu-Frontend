@@ -76,7 +76,7 @@ const SelectContent = React.forwardRef<
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
+      {/* chevron 없는 버전: SelectScrollUpButton, SelectScrollDownButton 제거 */}
       <SelectPrimitive.Viewport
         className={cn(
           'p-1',
@@ -86,7 +86,6 @@ const SelectContent = React.forwardRef<
       >
         {children}
       </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));
