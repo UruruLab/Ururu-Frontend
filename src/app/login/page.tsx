@@ -9,6 +9,7 @@ import { SocialLogin } from '@/components/auth/SocialLogin';
 import { SellerLogin } from '@/components/auth/SellerLogin';
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { getSafeRedirectPath } from '@/lib/utils';
 
 function LoginPageContent() {
   const { loginType, setLoginType, isLoading, error, isAuthenticated, user } = useAuthStore();
@@ -26,13 +27,25 @@ function LoginPageContent() {
   // 로그인 성공 시 리다이렉트
   useEffect(() => {
     if (isAuthenticated && user) {
-      if (user.user_type === 'SELLER') {
-        router.push('/seller');
+      // URL에서 redirect 파라미터 확인
+      const redirectPath = searchParams.get('redirect');
+
+      // 안전한 리다이렉트 경로 추출
+      const safeRedirectPath = getSafeRedirectPath(redirectPath);
+
+      if (safeRedirectPath) {
+        // 안전한 redirect 파라미터가 있으면 해당 경로로 이동
+        router.push(safeRedirectPath);
       } else {
-        router.push('/mypage');
+        // 기본 리다이렉트: 사용자 타입에 따라
+        if (user.user_type === 'SELLER') {
+          router.push('/seller');
+        } else {
+          router.push('/mypage');
+        }
       }
     }
-  }, [isAuthenticated, user, router]);
+  }, [isAuthenticated, user, router, searchParams]);
 
   const handleLoginSuccess = () => {
     // 로그인 성공 시 리다이렉트는 useEffect에서 처리
