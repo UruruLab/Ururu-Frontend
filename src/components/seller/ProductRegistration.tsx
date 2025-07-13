@@ -15,7 +15,7 @@ import { FormField } from '@/components/form/FormField';
 import { FORM_STYLES } from '@/constants/form-styles';
 import { CAPACITY_UNITS } from '@/data/seller';
 import { useFormArray } from '@/hooks/seller/useFormArray';
-import { useProductMetadata } from '@/hooks/seller/useProductMetadata';
+import type { Category, Tag } from '@/types/product';
 import { OptionList } from './common/OptionList';
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { TagSelector } from './common/TagSelector';
@@ -52,7 +52,12 @@ interface ProductFormData {
   customerService: string;
 }
 
-export function ProductRegistration() {
+interface ProductRegistrationProps {
+  categories: Category[];
+  tags: Tag[];
+}
+
+export function ProductRegistration({ categories, tags }: ProductRegistrationProps) {
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
     description: '',
@@ -74,9 +79,19 @@ export function ProductRegistration() {
     customerService: '',
   });
 
-  // 메타데이터 훅 사용
-  const { categories, tags, selectedTags, isLoading, error, handleTagsChange, getSelectedTagIds } =
-    useProductMetadata();
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // 태그 변경 핸들러
+  const handleTagsChange = (tags: Tag[]) => {
+    setSelectedTags(tags);
+  };
+
+  // 선택된 태그 ID 배열 가져오기
+  const getSelectedTagIds = (): number[] => {
+    return selectedTags.map((tag) => tag.value);
+  };
 
   const handleInputChange = (field: keyof ProductFormData, value: any) => {
     setFormData((prev) => ({
