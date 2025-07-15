@@ -1,13 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getRefunds } from '@/services/refundService';
 import { convertRefund } from '@/lib/utils';
-import {
-  Refund,
-  RefundStatusSummary,
-  RefundStatusFilter,
-  ApiRefund,
-  ApiRefundsParams,
-} from '@/types/refund';
+import { Refund, RefundStatusSummary, RefundStatusFilter, ApiRefund } from '@/types/refund';
 
 export function useRefunds(statusFilter: RefundStatusFilter = 'all') {
   const [allRefunds, setAllRefunds] = useState<ApiRefund[]>([]);
@@ -30,9 +24,7 @@ export function useRefunds(statusFilter: RefundStatusFilter = 'all') {
       setLoading(true);
       setError(null);
 
-      const apiStatus = statusFilter;
-      const apiParams: ApiRefundsParams = {
-        status: apiStatus,
+        status: statusFilter,
         page: 1,
         size: 5,
       };
@@ -65,11 +57,10 @@ export function useRefunds(statusFilter: RefundStatusFilter = 'all') {
       setLoadingMore(true);
 
       // 클라이언트 필터를 API 형식으로 변환 (이제 직접 매핑)
-      const apiStatus = statusFilter;
-
       const data = await getRefunds({
-        status: apiStatus,
         page,
+        size: 5,
+      });
         size: 5,
       });
 
