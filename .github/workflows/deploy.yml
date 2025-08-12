@@ -1,4 +1,4 @@
-name: git push into another repo to deploy to vercel
+name: vercel deploy (다른 레포에 푸시하여 배포)
 
 on:
   push:
