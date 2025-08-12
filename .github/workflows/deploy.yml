@@ -21,7 +21,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.URURU_GITHUB_KEY }}
         with:
           source-directory: 'output'
-          destination-github-username: 1000hyehyang
+          destination-github-username: bamcodingdan
           destination-repository-name: Ururu-Frontend
           user-email: ${{ secrets.URURU_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
