@@ -10,15 +10,9 @@ import {
 } from '@/components/home';
 import {
   heroBanners,
-  realtimeBestProducts,
   personalizedProducts,
-  categoryRankings,
-  historyBasedProducts,
 } from '@/data/home';
 import { WithdrawnMemberAlert } from '@/components/common/WithdrawnMemberAlert';
-import { useEffect, useState } from 'react';
-import { fetchGroupBuyTop3 } from '@/services/groupbuyService';
-import type { GroupBuyTop3 } from '@/types/groupbuy';
 import RealtimeBestFetcher from '@/components/home/RealtimeBestFetcher';
 
 export const metadata: Metadata = {

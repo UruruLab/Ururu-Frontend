@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { NoFooterLayout } from '@/components/layout/layouts';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import { getPaymentErrorMessage } from '@/utils/paymentErrorMapping';
 
@@ -68,7 +68,7 @@ function PaymentFailContent() {
 
 export default function PaymentFailPage() {
   return (
-    <Suspense fallback={<LoadingSkeleton lines={5} className="h-screen" />}>
+    <Suspense fallback={<Skeleton className="h-screen" />}>
       <PaymentFailContent />
     </Suspense>
   );

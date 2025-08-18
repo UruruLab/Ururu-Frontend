@@ -28,13 +28,12 @@ export const SocialLogin: React.FC<SocialLoginProps> = ({
       // 1. 인증 URL 생성
       const authInfo = await AuthService.getSocialAuthUrl(provider);
 
-      // 2. 소셜 로그인 페이지로 리다이렉트
+      // 2. 소셜 로그인 페이지로 즉시 리다이렉트
       window.location.href = authInfo.authUrl;
     } catch (error) {
       console.error('Social login error:', error);
+      setIsLoading(false); // 에러 시에만 로딩 상태 해제
       onError?.(error instanceof Error ? error.message : '소셜 로그인에 실패했습니다.');
-    } finally {
-      setIsLoading(false);
     }
   };
 

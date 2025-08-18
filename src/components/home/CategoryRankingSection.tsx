@@ -9,6 +9,7 @@ import { DesktopProductGrid } from './DesktopProductGrid';
 import { fetchGroupBuyCategoryTop6 } from '@/services/groupbuyService';
 import type { GroupBuyTop3 } from '@/types/groupbuy';
 import type { Product } from '@/types/product';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // 카테고리명과 API categoryId 매핑
 const CATEGORY_ID_MAP: Record<string, number> = {
@@ -45,6 +46,51 @@ function convertToProduct(item: GroupBuyTop3): Product {
   };
 }
 
+// 카테고리 랭킹 스켈레톤 컴포넌트
+function CategoryRankingSkeleton() {
+  return (
+    <div className="space-y-4">
+      {/* 모바일 스켈레톤 */}
+      <div className="md:hidden">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="flex items-center gap-3 rounded-xl bg-bg-100 p-3">
+            <Skeleton className="h-8 w-4" />
+            <Skeleton className="h-14 w-14 rounded-lg" />
+            <div className="flex-1 space-y-2">
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-4 w-3/4" />
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-5 w-8" />
+                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-5 w-20" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 데스크탑 스켈레톤 */}
+      <div className="hidden md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div key={index} className="flex items-center gap-4 rounded-xl bg-bg-100 p-4">
+            <Skeleton className="h-10 w-5" />
+            <Skeleton className="h-20 w-20 rounded-lg" />
+            <div className="flex-1 space-y-2">
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-4 w-3/4" />
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-5 w-8" />
+                <Skeleton className="h-4 w-16" />
+                <Skeleton className="h-5 w-20" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CategoryRankingSection({ className = '' }: { className?: string }) {
   const mainCategories = categoryItems
     .map((cat) => cat.title)
@@ -61,7 +107,6 @@ export function CategoryRankingSection({ className = '' }: { className?: string 
   const activeProducts = productsByCategory[activeCategoryId] || [];
 
   useEffect(() => {
-    // 이미 불러온 카테고리는 캐시
     if (productsByCategory[activeCategoryId] !== undefined) return;
     setLoading(true);
     setError(null);
@@ -106,7 +151,7 @@ export function CategoryRankingSection({ className = '' }: { className?: string 
         onMobilePageReset={handleMobilePageReset}
       />
       <div>
-        {loading && <div className="text-center text-sm text-text-200">로딩 중...</div>}
+        {loading && <CategoryRankingSkeleton />}
         {error && <div className="text-center text-sm text-red-400">{error}</div>}
         {!loading && !error && activeProducts.length === 0 && (
           <div className="flex flex-col items-center justify-center py-8 md:py-12">

@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeader } from '@/components/common/SectionHeader';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
 import { StatusBadge } from '@/components/common/StatusBadge';
 import { ScrollToTopButton, ErrorDialog, ConfirmDialog } from '@/components/common';
 import { FORM_STYLES } from '@/constants/form-styles';
@@ -14,6 +13,7 @@ import { ProductService } from '@/services/productService';
 import { useProductStore } from '@/store';
 import type { SellerProductDetail, Tag } from '@/types/product';
 import { ArrowLeft, Edit, Trash2 } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ProductDetailProps {
   productId: number;
@@ -134,12 +134,12 @@ export function ProductDetail({ productId }: ProductDetailProps) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 md:ml-0 md:px-0">
         <div className="mb-6 flex items-center gap-4">
-          <LoadingSkeleton className="h-8 w-8" />
-          <LoadingSkeleton className="h-8 w-32" />
+          <Skeleton className="h-8 w-8" />
+          <Skeleton className="h-8 w-32" />
         </div>
         <div className="space-y-6">
           {Array.from({ length: 3 }).map((_, index) => (
-            <LoadingSkeleton key={index} className="h-48 w-full" />
+            <Skeleton key={index} className="h-48 w-full" />
           ))}
         </div>
         <ScrollToTopButton />

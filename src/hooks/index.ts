@@ -18,7 +18,6 @@ export { useBeautyProfileEdit } from './useBeautyProfileEdit';
 export { useBeautyProfileUtils } from './useBeautyProfileUtils';
 export { useDropdown } from './useDropdown';
 export { useImageCarousel } from './useImageCarousel';
-export { useAuthGuard } from './useAuthGuard';
 export { usePointHistory } from './usePointHistory';
 export { useOrders } from './useOrders';
 export { useRefunds } from './useRefunds';

@@ -9,7 +9,6 @@ interface AuthState {
   loginType: 'buyer' | 'seller';
   isAuthenticated: boolean;
   user: UserInfo | null;
-  isLoading: boolean;
   error: string | null;
   isCheckingAuth: boolean; // 인증 확인 중인지 체크
   hasInitialized: boolean; // 초기 인증 확인 완료 여부
@@ -18,7 +17,6 @@ interface AuthState {
   setLoginType: (type: 'buyer' | 'seller') => void;
   login: (user: UserInfo) => void;
   logout: () => void;
-  setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   checkAuth: () => Promise<void>;
   initializeAuth: () => Promise<void>;
@@ -29,7 +27,6 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   loginType: 'buyer',
   isAuthenticated: false,
   user: null,
-  isLoading: false,
   error: null,
   isCheckingAuth: false,
   hasInitialized: false,
@@ -38,7 +35,6 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   setLoginType: (type) => set({ loginType: type }),
   login: (user) => set({ isAuthenticated: true, user, error: null }),
   logout: () => set({ isAuthenticated: false, user: null, error: null }),
-  setLoading: (loading) => set({ isLoading: loading }),
   setError: (error) => set({ error }),
 
   // 초기 인증 확인 (앱 시작 시 한 번만 호출)
@@ -50,7 +46,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       return;
     }
 
-    set({ isCheckingAuth: true, isLoading: true });
+    set({ isCheckingAuth: true });
     try {
       const response = await api.get('/auth/me');
 
@@ -105,7 +101,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         hasInitialized: true,
       });
     } finally {
-      set({ isLoading: false, isCheckingAuth: false });
+      set({ isCheckingAuth: false });
     }
   },
 
@@ -127,9 +123,14 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
           isAuthenticated: true,
           user: response.data.data.member_info,
           error: null,
+          hasInitialized: true, // 초기화 완료 표시
         });
       } else {
-        set({ isAuthenticated: false, user: null });
+        set({
+          isAuthenticated: false,
+          user: null,
+          hasInitialized: true, // 초기화 완료 표시
+        });
       }
     } catch (error: any) {
       // 401 에러인 경우 토큰 갱신을 시도
@@ -151,6 +152,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
                 isAuthenticated: true,
                 user: authResponse.data.data.member_info,
                 error: null,
+                hasInitialized: true, // 초기화 완료 표시
               });
               return; // 성공적으로 인증됨
             }
@@ -161,7 +163,11 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       }
 
       // 토큰 갱신 실패 또는 다른 에러인 경우 로그아웃 상태로 설정
-      set({ isAuthenticated: false, user: null });
+      set({
+        isAuthenticated: false,
+        user: null,
+        hasInitialized: true, // 초기화 완료 표시
+      });
     } finally {
       set({ isCheckingAuth: false });
     }

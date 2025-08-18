@@ -4,7 +4,38 @@ import React from 'react';
 import { FullLayout } from '@/components/layout';
 import { CategorySelector } from '@/components/ranking';
 import { ProductGrid } from '@/components/product';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useRanking } from '@/hooks/useRanking';
+
+// 상품 카드 스켈레톤 컴포넌트
+function ProductCardSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="aspect-square w-full rounded-lg" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-5 w-20" />
+          <Skeleton className="h-4 w-16" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 상품 그리드 스켈레톤 컴포넌트
+function ProductGridSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      {Array.from({ length: 12 }).map((_, index) => (
+        <div key={index}>
+          <ProductCardSkeleton />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function RankingPage() {
   const { categories, selectedCategory, rankingProducts, loading, error, handleCategoryChange } =
@@ -32,7 +63,7 @@ export default function RankingPage() {
 
         {/* 랭킹 상품 그리드 */}
         <div className="mb-8">
-          {loading && <div className="text-center text-sm text-text-200">로딩 중...</div>}
+          {loading && <ProductGridSkeleton />}
           {error && <div className="text-center text-sm text-red-400">{error}</div>}
           {!loading && !error && (
             <ProductGrid

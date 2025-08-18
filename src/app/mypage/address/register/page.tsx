@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { MyPageLayout } from '@/components/mypage/MyPageLayout';
 import { AddressFormFields } from '@/components/mypage/address';
 import { Card, CardContent } from '@/components/ui/card';
-import { PageHeader, CardSkeleton, ErrorDialog } from '@/components/common';
+import { PageHeader, ErrorDialog } from '@/components/common';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FORM_STYLES } from '@/constants/form-styles';
 import { useAddress } from '@/hooks/useAddress';
 import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -13,7 +14,16 @@ import { AuthGuard } from '@/components/auth/AuthGuard';
 function AddressRegisterSkeleton() {
   return (
     <MyPageLayout>
-      <CardSkeleton content={6} />
+      <Card className={FORM_STYLES.card.base}>
+        <CardContent className={FORM_STYLES.card.content}>
+          <PageHeader title="배송지 등록" />
+          <div className="space-y-6">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton key={index} className="h-12 w-full" />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </MyPageLayout>
   );
 }

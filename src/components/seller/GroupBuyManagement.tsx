@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { EmptyState } from '@/components/common/EmptyState';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ScrollToTopButton, ErrorDialog, ConfirmDialog } from '@/components/common';
 import { FORM_STYLES } from '@/constants/form-styles';
 import {
@@ -247,7 +247,7 @@ export function GroupBuyManagement() {
         <h1 className="mb-10 text-center text-3xl font-semibold text-text-100">공구 관리</h1>
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, index) => (
-            <LoadingSkeleton key={index} className="h-24 w-full" />
+            <Skeleton key={index} className="h-24 w-full" />
           ))}
         </div>
         <ScrollToTopButton />

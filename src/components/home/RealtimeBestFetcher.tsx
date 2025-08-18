@@ -48,13 +48,9 @@ export default function RealtimeBestFetcher({ className = '' }: { className?: st
   const realtimeBestProducts = groupBuyTop3.map(convertToProduct);
 
   // 안내 메시지만 단독으로 노출
-  if (loading) return <div className="text-center text-sm text-text-200">로딩 중...</div>;
   if (error) return <div className="text-center text-sm text-red-400">{error}</div>;
-  if (realtimeBestProducts.length === 0) {
-    return (
-      <div className="text-center text-sm text-text-200">실시간 베스트 공동구매가 없습니다.</div>
-    );
-  }
 
-  return <RealtimeBestSection products={realtimeBestProducts} className={className} />;
+  return (
+    <RealtimeBestSection products={realtimeBestProducts} loading={loading} className={className} />
+  );
 }

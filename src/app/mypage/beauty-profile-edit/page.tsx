@@ -5,13 +5,8 @@ import { Button } from '@/components/ui/button';
 import { MyPageLayout } from '@/components/mypage/MyPageLayout';
 import { BeautyProfileFormFields } from '@/components/mypage/beauty-profile-edit';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  NoticeBanner,
-  PageHeader,
-  LoadingSkeleton,
-  ErrorDialog,
-  SuccessDialog,
-} from '@/components/common';
+import { NoticeBanner, PageHeader, ErrorDialog, SuccessDialog } from '@/components/common';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FORM_STYLES } from '@/constants/form-styles';
 import { useBeautyProfileEdit } from '@/hooks/useBeautyProfileEdit';
 import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -42,7 +37,7 @@ function BeautyProfileEditPageContent() {
         <Card className={FORM_STYLES.card.base}>
           <CardContent className={FORM_STYLES.card.content}>
             <PageHeader title="뷰티프로필 수정" />
-            <LoadingSkeleton className="h-96" />
+            <Skeleton className="h-96" />
           </CardContent>
         </Card>
       </MyPageLayout>

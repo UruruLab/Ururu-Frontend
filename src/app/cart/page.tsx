@@ -4,11 +4,11 @@ import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { NoFooterLayout } from '@/components/layout/layouts';
 import { CartItem as CartItemComponent, CartSelectAll, CartSummary } from '@/components/cart';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useCart } from '@/hooks/useCart';
 import { useAuthStore } from '@/store';
 import { calculateCartSummary } from '@/data/cart';
 import { AuthGuard } from '@/components/auth/AuthGuard';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
 import { ErrorDialog } from '@/components/common/ErrorDialog';
 import type { CartItem } from '@/types/cart';
 
@@ -87,7 +87,18 @@ function CartPageContent() {
           <h1 className="mb-8 text-center text-2xl font-semibold text-text-100 md:text-3xl">
             장바구니
           </h1>
-          <LoadingSkeleton />
+          <div className="space-y-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="flex items-center space-x-4">
+                <Skeleton className="h-20 w-20 rounded-lg" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-3 w-1/2" />
+                  <Skeleton className="h-6 w-1/3" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </NoFooterLayout>
     );

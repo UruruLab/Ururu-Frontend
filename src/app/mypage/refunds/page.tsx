@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { RefundStatusTabs, RefundCard } from '@/components/refunds';
-import { EmptyState, PageHeader, LoadingSkeleton } from '@/components/common';
+import { EmptyState, PageHeader } from '@/components/common';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useRefunds, useInfiniteScroll } from '@/hooks';
 import { RefundStatusFilter } from '@/types/refund';
 import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -28,7 +29,7 @@ function RefundsPageContent() {
     return (
       <div className="flex flex-1 flex-col gap-6 py-4 md:py-6">
         <PageHeader title="취소/환불 내역" />
-        <LoadingSkeleton />
+        <Skeleton className="h-full" />
       </div>
     );
   }
@@ -64,7 +65,7 @@ function RefundsPageContent() {
             {refunds.map((refund) => (
               <RefundCard key={refund.id} refund={refund} />
             ))}
-            {loadingMore && <LoadingSkeleton />}
+            {loadingMore && <Skeleton className="h-full" />}
           </>
         )}
       </div>

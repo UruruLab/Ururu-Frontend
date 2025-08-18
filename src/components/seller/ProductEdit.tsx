@@ -29,7 +29,7 @@ import type {
 } from '@/types/product';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ProductService } from '@/services/productService';
 import { SuccessDialog } from '@/components/common/SuccessDialog';
 import { ErrorDialog } from '@/components/common/ErrorDialog';
@@ -375,9 +375,9 @@ export function ProductEdit({ productId }: { productId: number }) {
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-0">
         <h1 className="mb-10 text-center text-3xl font-semibold text-text-100">상품 수정</h1>
         <div className="space-y-4">
-          <LoadingSkeleton className="h-12 w-full" />
-          <LoadingSkeleton className="h-32 w-full" />
-          <LoadingSkeleton className="h-64 w-full" />
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-32 w-full" />
+          <Skeleton className="h-64 w-full" />
         </div>
       </div>
     );
@@ -432,7 +432,7 @@ export function ProductEdit({ productId }: { productId: number }) {
             {/* 카테고리 */}
             <FormField label="카테고리" required>
               {isLoading ? (
-                <LoadingSkeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
               ) : error ? (
                 <div className="text-sm text-red-500">카테고리 정보를 불러오지 못했습니다.</div>
               ) : (
@@ -516,7 +516,7 @@ export function ProductEdit({ productId }: { productId: number }) {
             {/* 태그 */}
             <FormField label={`태그 (${selectedTags.length}/3)`} required>
               {isLoading ? (
-                <LoadingSkeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
               ) : error ? (
                 <div className="text-sm text-red-500">태그 정보를 불러오지 못했습니다.</div>
               ) : (

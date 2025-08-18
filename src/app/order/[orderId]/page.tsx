@@ -9,20 +9,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { OrderItem, PointUsage, PaymentSummary, DeliveryAddress } from '@/components/order';
 import { PaymentWindow } from '@/components/payment/PaymentWindow';
 import { AuthGuard } from '@/components/auth/AuthGuard';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getShippingAddresses } from '@/services/memberService';
 import { toast } from 'sonner';
 import type { CartItem as CartItemType } from '@/types/cart';
 import type { ApiCreateOrderResponse, ShippingAddress } from '@/types/api';
-
-// 로딩 스피너 컴포넌트
-function LoadingSpinner() {
-  return (
-    <div className="flex items-center justify-center">
-      <div className="border-t-primary-400 h-8 w-8 animate-spin rounded-full border-4 border-primary-200"></div>
-    </div>
-  );
-}
 
 // 주문 페이지 로딩 상태 컴포넌트
 function OrderPageLoading() {
@@ -35,22 +26,11 @@ function OrderPageLoading() {
         </h1>
 
         <div className="space-y-6">
-          {/* 로딩 메시지 */}
-          <div className="flex flex-col items-center justify-center py-16">
-            <LoadingSpinner />
-            <div className="mt-4 text-center">
-              <div className="mb-2 text-lg font-medium text-text-100">
-                주문 정보를 불러오는 중...
-              </div>
-              <div className="text-sm text-text-200">잠시만 기다려 주세요.</div>
-            </div>
-          </div>
-
           {/* 스켈레톤 UI */}
           <div className="space-y-6">
-            <LoadingSkeleton lines={3} className="h-32 rounded-2xl bg-bg-100 p-6" />
-            <LoadingSkeleton lines={4} className="h-40 rounded-2xl bg-bg-100 p-6" />
-            <LoadingSkeleton lines={2} className="h-24 rounded-2xl bg-bg-100 p-6" />
+            <Skeleton className="h-32 rounded-2xl bg-bg-100 p-6" />
+            <Skeleton className="h-40 rounded-2xl bg-bg-100 p-6" />
+            <Skeleton className="h-24 rounded-2xl bg-bg-100 p-6" />
           </div>
         </div>
       </div>
