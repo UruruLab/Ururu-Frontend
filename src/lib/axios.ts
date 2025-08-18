@@ -81,11 +81,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
 
-        // 갱신 실패 시 로그인 페이지로 리다이렉트
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
-        }
-
+        // 갱신 실패 시 강제 리다이렉트 제거
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
