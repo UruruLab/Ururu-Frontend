@@ -74,10 +74,10 @@ const sidebarItems: SidebarItem[] = [
 
 export function SellerSidebar() {
   const pathname = usePathname();
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
 
   const handleLogoutClick = async () => {
-    await handleLogout();
+    await logout();
   };
 
   return (

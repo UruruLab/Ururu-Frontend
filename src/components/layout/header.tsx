@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { useUIStore, useAuthStore } from '@/store';
-import { useLogout } from '@/hooks/useLogout';
+import { useLogout } from '@/hooks/useAuth';
 // import { useCartBadge } from '@/hooks/useCartBadge'; // TODO: API 연동 완료 후 활성화
 
 // 태블릿/모바일 헤더 컴포넌트
 function MobileHeader() {
   const { searchOpen, toggleSearch } = useUIStore();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
   // const { cartItemCount } = useCartBadge(); // TODO: API 연동 완료 후 활성화
 
   return (

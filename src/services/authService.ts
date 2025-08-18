@@ -31,7 +31,7 @@ export class AuthService {
     return response.data.data!;
   }
 
-  // 소셜 로그인 처리 (직접 호출 방식)
+  // 소셜 로그인 처리
   static async processSocialLogin(
     provider: SocialProvider,
     code: string,
@@ -70,7 +70,7 @@ export class AuthService {
     try {
       await api.post<ApiResponse<void>>('/auth/logout');
     } catch (error) {
-      console.warn('Logout request failed, but continuing with client logout:', error);
+      // 로그아웃 요청 실패 시에도 클라이언트 로그아웃 진행
     }
   }
 
@@ -79,7 +79,7 @@ export class AuthService {
     try {
       await api.post<ApiResponse<void>>('/auth/seller/logout');
     } catch (error) {
-      console.warn('Seller logout request failed, but continuing with client logout:', error);
+      // 로그아웃 요청 실패 시에도 클라이언트 로그아웃 진행
     }
   }
 

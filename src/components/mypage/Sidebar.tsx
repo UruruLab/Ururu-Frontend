@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 
 export function Sidebar() {
   const { navigationSections } = myPageData;
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
   const router = useRouter();
 
   // 다이얼로그 상태
@@ -28,7 +28,7 @@ export function Sidebar() {
 
   // 로그아웃 핸들러
   const handleLogoutClick = async () => {
-    await handleLogout();
+    await logout();
   };
 
   // 회원탈퇴 핸들러
@@ -43,7 +43,7 @@ export function Sidebar() {
     try {
       await deleteMe();
       setIsWithdrawDialogOpen(false);
-      await handleLogout();
+      await logout();
       router.push('/');
     } catch (err: any) {
       setWithdrawError(err?.response?.data?.message || err?.message || '탈퇴에 실패했습니다.');

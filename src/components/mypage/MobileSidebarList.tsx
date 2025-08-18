@@ -8,11 +8,11 @@ import { useLogout } from '@/hooks/useAuth';
 
 export function MobileSidebarList() {
   const { navigationSections } = myPageData;
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
 
   // 로그아웃 핸들러
   const handleLogoutClick = async () => {
-    await handleLogout();
+    await logout();
   };
 
   // 아이템에 onClick 핸들러 추가

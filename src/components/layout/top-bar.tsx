@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 
 export function TopBar() {
   const { isAuthenticated, user } = useAuthStore();
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
   const router = useRouter();
 
   const handleLogoutClick = async () => {
-    await handleLogout();
+    await logout();
   };
 
   const handleAuthRequiredClick = (href: string) => {
