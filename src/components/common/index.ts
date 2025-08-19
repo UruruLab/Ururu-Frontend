@@ -18,3 +18,4 @@ export { WithdrawnMemberAlert } from './WithdrawnMemberAlert';
 export { SectionHeader } from './SectionHeader';
 export { CenteredSectionHeader } from './CenteredSectionHeader';
 export { EmptyPage } from './EmptyPage';
+export { LogoutConfirmDialog } from './LogoutConfirmDialog';
