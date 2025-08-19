@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -237,13 +238,15 @@ export function ProductDetail({ productId }: ProductDetailProps) {
               key={option.id}
               className="flex items-center gap-6 border-b border-bg-200 pb-4 last:border-b-0 last:pb-0"
             >
-              <img
+              <Image
                 src={
                   option.imageUrl === '/images/default-product-option.jpg'
                     ? 'https://ururu-bucket.s3.ap-northeast-2.amazonaws.com/groupbuy/thumbnail/default_thumbnail.png'
                     : option.imageUrl
                 }
                 alt={option.name}
+                width={80}
+                height={80}
                 className="h-20 w-20 rounded-lg object-cover"
               />
               <div className="flex-1">

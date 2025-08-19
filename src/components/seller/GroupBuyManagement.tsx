@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { SectionHeader } from '@/components/common/SectionHeader';
@@ -331,11 +332,12 @@ export function GroupBuyManagement() {
                     <div className="flex gap-4">
                       {/* 썸네일 이미지 */}
                       <div className="flex-shrink-0">
-                        <img
+                        <Image
                           src={groupBuy.thumbnailUrl}
                           alt={groupBuy.title}
+                          width={120}
+                          height={120}
                           className="rounded-lg object-cover"
-                          style={{ width: '120px', height: '120px' }}
                         />
                       </div>
 

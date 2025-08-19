@@ -9,11 +9,7 @@ const nextConfig = {
         hostname: 'image.oliveyoung.co.kr',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        pathname: '/**',
-      },
+
       {
         protocol: 'https',
         hostname: 'i.pinimg.com',
@@ -22,6 +18,26 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ururu-bucket.s3.ap-northeast-2.amazonaws.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'k.kakaocdn.net',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.ururu.shop',
         pathname: '/**',
       },
     ],

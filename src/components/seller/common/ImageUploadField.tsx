@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 import { FormField } from '@/components/form/FormField';
 import { ErrorDialog } from '@/components/common/ErrorDialog';
 
@@ -131,10 +132,11 @@ export function ImageUploadField({
                 maxHeight: isOptionVariant ? 90 : 180,
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={URL.createObjectURL(uploadedFiles[0])}
                 alt="미리보기"
+                width={isOptionVariant ? 120 : 240}
+                height={isOptionVariant ? 90 : 180}
                 className="rounded-lg object-contain"
                 style={{
                   maxWidth: isOptionVariant ? 120 : 240,
@@ -161,10 +163,11 @@ export function ImageUploadField({
                   maxHeight: isOptionVariant ? 90 : 180,
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={existingImageUrl}
                   alt="기존 이미지"
+                  width={isOptionVariant ? 120 : 240}
+                  height={isOptionVariant ? 90 : 180}
                   className="rounded-lg object-contain"
                   style={{
                     maxWidth: isOptionVariant ? 120 : 240,
@@ -206,10 +209,11 @@ export function ImageUploadField({
                 onDragEnd={handleDragEnd}
               >
                 <div className="aspect-square overflow-hidden rounded-lg bg-bg-200">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={URL.createObjectURL(file)}
                     alt={`미리보기 ${index + 1}`}
+                    width={100}
+                    height={100}
                     className="pointer-events-none h-full w-full object-cover"
                   />
                 </div>
