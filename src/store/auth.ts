@@ -69,7 +69,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         });
       }
     } catch (error: any) {
-      // 인터셉터에서 갱신/재시도를 처리하므로 이곳에서는 실패 시 비인증 상태로 정리
+      // 인터셉터가 토큰 갱신을 시도했지만 실패한 것으로 간주하고 비인증 상태로 설정
       set({
         isAuthenticated: false,
         user: null,
@@ -98,21 +98,21 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
           isAuthenticated: true,
           user: response.data.data.member_info,
           error: null,
-          hasInitialized: true, // 초기화 완료 표시
+          hasInitialized: true,
         });
       } else {
         set({
           isAuthenticated: false,
           user: null,
-          hasInitialized: true, // 초기화 완료 표시
+          hasInitialized: true,
         });
       }
     } catch (error: any) {
-      // 인터셉터가 재시도를 실패한 경우로 간주하고 비인증 상태로 설정
+      // 인터셉터가 토큰 갱신을 시도했지만 실패한 것으로 간주하고 비인증 상태로 설정
       set({
         isAuthenticated: false,
         user: null,
-        hasInitialized: true, // 초기화 완료 표시
+        hasInitialized: true,
       });
     } finally {
       set({ isCheckingAuth: false });

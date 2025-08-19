@@ -44,8 +44,11 @@ api.interceptors.response.use(
 
     const originalRequest = error.config;
 
-    // 401 에러 처리 - 토큰 갱신 시도
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // 401 또는 403 에러 처리 - 토큰 갱신 시도
+    if (
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      !originalRequest._retry
+    ) {
       if (isRefreshing) {
         // 이미 토큰 갱신 중이면 큐에 추가
         return new Promise((resolve, reject) => {
@@ -80,8 +83,6 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         processQueue(refreshError, null);
-
-        // 갱신 실패 시 강제 리다이렉트 제거
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
