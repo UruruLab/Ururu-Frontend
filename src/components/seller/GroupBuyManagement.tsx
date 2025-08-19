@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -18,7 +18,6 @@ import {
 import type { SellerGroupBuy, SellerGroupBuyListResponse } from '@/types/groupbuy';
 import { Plus } from 'lucide-react';
 import { Pagination } from '@/components/seller/common/Pagination';
-import { Badge } from '@/components/ui/badge';
 
 export function GroupBuyManagement() {
   const router = useRouter();
@@ -53,24 +52,27 @@ export function GroupBuyManagement() {
   });
 
   // 그룹바이 목록 조회
-  const fetchGroupBuys = async (page: number = 0) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const data = await getSellerGroupBuys(page, pageSize);
-      setGroupBuyData(data);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
-      setError(errorMessage || '공구 목록을 불러오는데 실패했습니다.');
-      // TODO: 에러 로깅 서비스 연동
-      console.error('공구 목록 조회 실패:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const fetchGroupBuys = useCallback(
+    async (page: number = 0) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await getSellerGroupBuys(page, pageSize);
+        setGroupBuyData(data);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+        setError(errorMessage || '공구 목록을 불러오는데 실패했습니다.');
+        // TODO: 에러 로깅 서비스 연동
+        console.error('공구 목록 조회 실패:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [pageSize],
+  );
 
   // 전체 그룹바이 목록 조회 (카운트용)
-  const fetchAllGroupBuys = async () => {
+  const fetchAllGroupBuys = useCallback(async () => {
     setIsLoadingCounts(true);
     try {
       const data = await getAllSellerGroupBuys();
@@ -81,12 +83,12 @@ export function GroupBuyManagement() {
     } finally {
       setIsLoadingCounts(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchGroupBuys(currentPage);
     fetchAllGroupBuys();
-  }, [currentPage]);
+  }, [currentPage, fetchGroupBuys, fetchAllGroupBuys]);
 
   const handleRefresh = () => {
     fetchGroupBuys(currentPage);

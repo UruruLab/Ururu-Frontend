@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -40,26 +40,29 @@ export function ProductManagement() {
   });
 
   // 상품 목록 조회
-  const fetchProducts = async (page: number = 0) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const [data, allData] = await Promise.all([
-        ProductService.getSellerProducts(page, pageSize),
-        ProductService.getAllSellerProducts(),
-      ]);
-      setProductData(data);
-      setAllProducts(allData);
-    } catch (err: any) {
-      setError(err.message || '상품 목록을 불러오는데 실패했습니다.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const fetchProducts = useCallback(
+    async (page: number = 0) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const [data, allData] = await Promise.all([
+          ProductService.getSellerProducts(page, pageSize),
+          ProductService.getAllSellerProducts(),
+        ]);
+        setProductData(data);
+        setAllProducts(allData);
+      } catch (err: any) {
+        setError(err.message || '상품 목록을 불러오는데 실패했습니다.');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [pageSize],
+  );
 
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [currentPage]);
+  }, [currentPage, fetchProducts]);
 
   const handleRefresh = () => {
     fetchProducts(currentPage);

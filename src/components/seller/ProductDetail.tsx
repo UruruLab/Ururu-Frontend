@@ -58,7 +58,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
       }
     };
     fetchProductDetail();
-  }, [productId]);
+  }, [productId, setCurrentProduct, setCurrentProductTags]);
 
   const handleBack = () => {
     router.push('/seller/products');
