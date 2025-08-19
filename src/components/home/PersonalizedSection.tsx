@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -11,6 +11,7 @@ import { useAiPersonalizedProducts } from '@/hooks/useAiPersonalizedProducts';
 
 interface PersonalizedSectionProps {
   products?: Product[];
+  loading?: boolean;
   className?: string;
 }
 
@@ -64,12 +65,18 @@ function ProductGridSkeleton({ count = 8 }: { count?: number }) {
 
 export function PersonalizedSection({
   products: propProducts,
+  loading: propLoading,
   className = '',
 }: PersonalizedSectionProps) {
-  const { products: apiProducts, loading, error } = useAiPersonalizedProducts();
+  const { products: apiProducts, loading: apiLoading, error } = useAiPersonalizedProducts();
+
+  // prop으로 전달된 loading이 있으면 사용, 없으면 API loading 사용
+  const loading = propLoading !== undefined ? propLoading : apiLoading;
 
   // API 결과가 있으면 API 결과를 사용, 없으면 fallback 데이터 사용
-  const products = loading ? [] : apiProducts.length > 0 ? apiProducts : propProducts || [];
+  const products = useMemo(() => {
+    return loading ? [] : apiProducts.length > 0 ? apiProducts : propProducts || [];
+  }, [loading, apiProducts, propProducts]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // 페이지네이션 상태
