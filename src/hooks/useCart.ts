@@ -38,7 +38,7 @@ export const useCart = () => {
         setError('장바구니를 불러오는데 실패했습니다.');
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+      const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
       setError(errorMessage || '장바구니를 불러오는데 실패했습니다.');
       // TODO: 에러 로깅 서비스 연동
       console.error('장바구니 조회 실패:', err);

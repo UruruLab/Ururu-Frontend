@@ -61,7 +61,7 @@ export function GroupBuyManagement() {
         const data = await getSellerGroupBuys(page, pageSize);
         setGroupBuyData(data);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+        const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
         setError(errorMessage || '공구 목록을 불러오는데 실패했습니다.');
         // TODO: 에러 로깅 서비스 연동
         console.error('공구 목록 조회 실패:', err);
@@ -79,7 +79,7 @@ export function GroupBuyManagement() {
       const data = await getAllSellerGroupBuys();
       setAllGroupBuys(data.data.content || []);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+      const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
       console.error('전체공구 목록 조회 실패:', err);
     } finally {
       setIsLoadingCounts(false);
@@ -132,7 +132,7 @@ export function GroupBuyManagement() {
       await fetchAllGroupBuys(); // 전체 카운트도 새로고침
       setDeleteConfirm({ isOpen: false, groupBuyId: null, groupBuyTitle: '' });
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+      const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
       console.error('공구 삭제 실패:', err);
       setDeleteError({
         isOpen: true,
@@ -163,7 +163,7 @@ export function GroupBuyManagement() {
       await fetchAllGroupBuys(); // 전체 카운트도 새로고침
       setStartConfirm({ isOpen: false, groupBuyId: null, groupBuyTitle: '' });
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+      const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
       console.error('공구 시작 실패:', err);
       setError(errorMessage || '공구 시작에 실패했습니다.');
       setStartConfirm({ isOpen: false, groupBuyId: null, groupBuyTitle: '' });
@@ -247,12 +247,67 @@ export function GroupBuyManagement() {
   if (isLoading) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-0">
+        {/* 타이틀 */}
         <h1 className="mb-10 text-center text-3xl font-semibold text-text-100">공구 관리</h1>
-        <div className="space-y-4">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-24 w-full" />
+
+        {/* 상단 카운트 스켈레톤 */}
+        <div className="mx-auto mb-10 flex w-full max-w-lg justify-center">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div key={index} className="flex flex-1 flex-col items-center">
+              <Skeleton className="mb-1 h-8 w-12 md:h-10 md:w-16" />
+              <Skeleton className="h-4 w-12 md:h-5 md:w-16" />
+            </div>
           ))}
         </div>
+
+        {/* 공구 목록 스켈레톤 */}
+        <section>
+          <SectionHeader title="등록된 공구" />
+          <div className="mt-4 space-y-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="relative p-6">
+                {/* 상태 뱃지: 우측 상단 고정 */}
+                <div className="absolute right-6 top-6 z-10">
+                  <Skeleton className="h-6 w-16 rounded-lg" />
+                </div>
+
+                {/* 제목 */}
+                <Skeleton className="mb-4 h-6 w-3/4" />
+
+                {/* 썸네일과 정보를 가로로 배치 */}
+                <div className="flex gap-4">
+                  {/* 썸네일 이미지 스켈레톤 */}
+                  <div className="flex-shrink-0">
+                    <Skeleton className="h-[120px] w-[120px] rounded-lg" />
+                  </div>
+
+                  {/* 가격 정보 스켈레톤 */}
+                  <div className="flex-1 space-y-1">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-4 w-40" />
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-4 w-36" />
+                    <Skeleton className="h-4 w-44" />
+                  </div>
+                </div>
+
+                {/* 하단: 버튼들 스켈레톤 */}
+                <div className="mt-4 flex gap-2">
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                </div>
+
+                {/* 등록일/수정일: 오른쪽 하단 */}
+                <div className="absolute bottom-6 right-6">
+                  <Skeleton className="h-4 w-32" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <ScrollToTopButton />
       </div>
     );

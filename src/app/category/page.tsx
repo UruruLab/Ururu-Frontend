@@ -4,11 +4,11 @@ import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { FullLayout } from '@/components/layout/layouts';
 import { categoryItems } from '@/data/categories';
-import { fetchGroupBuyByCategoryId } from '@/services/groupbuyService';
 import type { GroupBuyTop3 } from '@/types/groupbuy';
 import type { Product } from '@/types/product';
 import { ProductGrid } from '@/components/product';
 import { useSearchParams } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // 세부 카테고리명과 categoryId 매핑
 const SUBCATEGORY_ID_MAP: Record<string, number> = {
@@ -58,6 +58,36 @@ const SUBCATEGORY_ID_MAP: Record<string, number> = {
   데오드란트: 138,
   베이비: 143,
 };
+
+// 상품 카드 스켈레톤 컴포넌트
+function ProductCardSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="aspect-square w-full rounded-lg" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-5 w-20" />
+          <Skeleton className="h-4 w-16" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 상품 그리드 스켈레톤 컴포넌트
+function ProductGridSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      {Array.from({ length: 12 }).map((_, index) => (
+        <div key={index}>
+          <ProductCardSkeleton />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function convertToProduct(item: GroupBuyTop3): Product {
   return {
@@ -311,9 +341,7 @@ function CategoryPage() {
         {selectedSub && (
           <div className="mt-8">
             {/* 기존 h3, 설명 p 태그는 제거됨 */}
-            {loading && products.length === 0 && (
-              <div style={{ minHeight: '60vh', background: '#fff' }} />
-            )}
+            {loading && products.length === 0 && <ProductGridSkeleton />}
             {error && error.includes('해당 공동구매를 찾을 수 없습니다.') ? (
               <div className="flex flex-col items-center justify-center py-8 md:py-12">
                 <div className="mb-4 text-6xl">💄</div>
@@ -323,7 +351,15 @@ function CategoryPage() {
                 <p className="text-text-200">다른 카테고리를 선택해보세요!</p>
               </div>
             ) : (
-              error && <div className="text-sm text-red-400">{error}</div>
+              error && (
+                <div className="flex flex-col items-center justify-center py-8 md:py-12">
+                  <div className="mb-4 text-6xl">💄</div>
+                  <h2 className="mb-2 text-xl font-semibold text-text-100">
+                    카테고리 데이터를 불러오지 못했습니다
+                  </h2>
+                  <p className="text-text-200">잠시 후 다시 시도해주세요!</p>
+                </div>
+              )
             )}
             {!loading && !error && products.length === 0 && (
               <div className="text-sm text-text-200">공동구매 상품이 없습니다.</div>

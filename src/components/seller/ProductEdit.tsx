@@ -434,7 +434,10 @@ export function ProductEdit({ productId }: { productId: number }) {
               {isLoading ? (
                 <Skeleton className="h-12 w-full" />
               ) : error ? (
-                <div className="text-sm text-red-500">카테고리 정보를 불러오지 못했습니다.</div>
+                <div className="flex flex-col items-center justify-center py-8">
+                  <div className="mb-2 text-4xl">📦</div>
+                  <p className="text-sm text-text-200">카테고리 정보를 불러오지 못했습니다</p>
+                </div>
               ) : (
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">

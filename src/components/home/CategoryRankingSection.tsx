@@ -152,7 +152,13 @@ export function CategoryRankingSection({ className = '' }: { className?: string 
       />
       <div>
         {loading && <CategoryRankingSkeleton />}
-        {error && <div className="text-center text-sm text-red-400">{error}</div>}
+        {error && (
+          <div className="flex flex-col items-center justify-center py-8 md:py-12">
+            <div className="mb-4 text-6xl">🏆</div>
+            <h2 className="mb-2 text-xl font-semibold text-text-100">카테고리 랭킹을 불러오지 못했습니다</h2>
+            <p className="text-text-200">잠시 후 다시 시도해주세요!</p>
+          </div>
+        )}
         {!loading && !error && activeProducts.length === 0 && (
           <div className="flex flex-col items-center justify-center py-8 md:py-12">
             <div className="mb-4 text-6xl">🏆</div>

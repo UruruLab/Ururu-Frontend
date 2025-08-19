@@ -64,7 +64,13 @@ export default function RankingPage() {
         {/* 랭킹 상품 그리드 */}
         <div className="mb-8">
           {loading && <ProductGridSkeleton />}
-          {error && <div className="text-center text-sm text-red-400">{error}</div>}
+          {error && (
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="mb-4 text-6xl">🏆</div>
+              <h2 className="mb-2 text-xl font-semibold text-text-100">랭킹 데이터를 불러오지 못했습니다</h2>
+              <p className="text-text-200">잠시 후 다시 시도해주세요!</p>
+            </div>
+          )}
           {!loading && !error && (
             <ProductGrid
               products={rankingProducts.map((item) => item.product)}

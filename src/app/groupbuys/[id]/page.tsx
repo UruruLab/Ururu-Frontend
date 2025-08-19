@@ -122,7 +122,7 @@ export default function GroupBuyDetailPage({ params }: GroupBuyDetailPageProps) 
         const response = await getGroupBuyDetail(groupBuyId);
         setGroupBuyData(response.data);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+        const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
         setError(errorMessage || '공동구매 정보를 불러오는데 실패했습니다.');
         // TODO: 에러 로깅 서비스 연동
         console.error('공구상세 정보 조회 실패:', err);

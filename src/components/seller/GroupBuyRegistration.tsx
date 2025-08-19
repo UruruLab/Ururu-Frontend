@@ -261,7 +261,7 @@ export function GroupBuyForm({ mode, initialData, onSubmit }: GroupBuyFormProps)
         const response = await fetchGroupBuyCreateData();
         setProducts(response.data.products);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+        const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
         // 49 상품이 없다는 에러는 EmptyState로 처리
         if (
           errorMessage?.includes('공동구매 등록 가능한 상품 없습니다') ||
@@ -455,7 +455,7 @@ export function GroupBuyForm({ mode, initialData, onSubmit }: GroupBuyFormProps)
         setSubmitSuccess('공동구매가 성공적으로 등록되었습니다!');
         // TODO: 등록 후 이동 (예: 라우터 push)
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '알수 없는 오류가 발생했습니다';
+        const errorMessage = err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다';
         setSubmitError(errorMessage || '공동구매 등록에 실패했습니다.');
         // TODO: 에러 로깅 서비스 연동
         console.error('공구 등록 실패:', err);
@@ -480,7 +480,13 @@ export function GroupBuyForm({ mode, initialData, onSubmit }: GroupBuyFormProps)
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-0">
-        <div className="text-center text-red-500">오류: {error}</div>
+        <div className="flex flex-col items-center justify-center py-16">
+          <div className="mb-4 text-6xl">📦</div>
+          <h2 className="mb-2 text-xl font-semibold text-text-100">
+            상품 데이터를 불러오지 못했습니다
+          </h2>
+          <p className="text-text-200">{error}</p>
+        </div>
       </div>
     );
   }

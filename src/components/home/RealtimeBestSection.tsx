@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 interface RealtimeBestSectionProps {
   products: Product[];
   loading?: boolean;
+  error?: string | null;
   className?: string;
 }
 
@@ -55,6 +56,7 @@ function RealtimeBestSkeleton({ variant }: { variant: 'mobile' | 'desktop' }) {
 export function RealtimeBestSection({
   products,
   loading = false,
+  error,
   className = '',
 }: RealtimeBestSectionProps) {
   return (
@@ -80,6 +82,14 @@ export function RealtimeBestSection({
             </div>
           </div>
         </>
+      ) : error ? (
+        <div className="flex flex-col items-center justify-center py-8 md:py-12">
+          <div className="mb-4 text-6xl">🏅</div>
+          <h2 className="mb-2 text-xl font-semibold text-text-100">
+            상품을 찾지 못했습니다
+          </h2>
+          <p className="text-text-200">잠시 후 다시 시도해주세요!</p>
+        </div>
       ) : products.length > 0 ? (
         <>
           {/* 모바일/태블릿: 세로 리스트 */}

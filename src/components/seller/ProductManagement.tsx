@@ -169,12 +169,63 @@ export function ProductManagement() {
   if (isLoading) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 md:px-0">
+        {/* 타이틀 */}
         <h1 className="mb-10 text-center text-3xl font-semibold text-text-100">상품 관리</h1>
-        <div className="space-y-4">
+
+        {/* 상단 카운트 스켈레톤 */}
+        <div className="mx-auto mb-10 flex w-full max-w-md justify-center">
           {Array.from({ length: 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-24 w-full" />
+            <div key={index} className="flex flex-1 flex-col items-center">
+              <Skeleton className="mb-1 h-8 w-12 md:h-10 md:w-16" />
+              <Skeleton className="h-4 w-12 md:h-5 md:w-16" />
+            </div>
           ))}
         </div>
+
+        {/* 상품 목록 스켈레톤 */}
+        <section>
+          <SectionHeader title="등록된 상품" />
+          <div className="mt-4 space-y-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="relative p-6">
+                {/* 상단: 카테고리(좌, 진한 글씨) + 중앙 구분선(bg-text-300, h-5) + 태그(우) */}
+                <div className="mb-1 flex items-center">
+                  <Skeleton className="h-4 w-24" />
+                  <div className="mx-2 h-5 w-px self-center bg-text-300" />
+                  <div className="flex flex-wrap gap-1">
+                    <Skeleton className="h-5 w-12 rounded-lg" />
+                    <Skeleton className="h-5 w-16 rounded-lg" />
+                  </div>
+                </div>
+
+                {/* 상태 뱃지: 우측 상단 고정 */}
+                <div className="absolute right-6 top-6 z-10">
+                  <Skeleton className="h-6 w-16 rounded-lg" />
+                </div>
+
+                {/* 제목, 설명 */}
+                <div className="min-w-0 flex-1">
+                  <Skeleton className="mb-2 h-6 w-3/4" />
+                  <Skeleton className="mb-2 mt-1 h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+
+                {/* 하단: 버튼 3개(좌) */}
+                <div className="mt-4 flex gap-2">
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                  <Skeleton className="h-10 w-20 rounded-lg" />
+                </div>
+
+                {/* 등록일/수정일: 오른쪽 하단, 글자 크기 text-sm */}
+                <div className="absolute bottom-6 right-6">
+                  <Skeleton className="h-4 w-32" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <ScrollToTopButton />
       </div>
     );
