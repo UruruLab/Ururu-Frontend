@@ -10,11 +10,13 @@ interface AuthState {
   isAuthenticated: boolean;
   user: UserInfo | null;
   error: string | null;
+  loading: boolean; // 로딩 상태
   isCheckingAuth: boolean; // 인증 확인 중인지 체크
   hasInitialized: boolean; // 초기 인증 확인 완료 여부
 
   // 액션들
   setLoginType: (type: 'buyer' | 'seller') => void;
+  setLoading: (loading: boolean) => void;
   login: (user: UserInfo) => void;
   logout: () => void;
   setError: (error: string | null) => void;
@@ -28,11 +30,13 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   isAuthenticated: false,
   user: null,
   error: null,
+  loading: false,
   isCheckingAuth: false,
   hasInitialized: false,
 
   // 액션들
   setLoginType: (type) => set({ loginType: type }),
+  setLoading: (loading) => set({ loading }),
   login: (user) => set({ isAuthenticated: true, user, error: null }),
   logout: () => set({ isAuthenticated: false, user: null, error: null }),
   setError: (error) => set({ error }),
@@ -65,36 +69,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         });
       }
     } catch (error: any) {
-      // 401 에러인 경우 토큰 갱신을 시도
-      if (error?.response?.status === 401) {
-        try {
-          // 토큰 갱신 시도 (기본 axios 사용, 인터셉터 제외)
-          const refreshResponse = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/auth/refresh`,
-            {},
-            { withCredentials: true },
-          );
-
-          if (refreshResponse.data.success) {
-            // 토큰 갱신 성공 시 다시 인증 확인
-            const authResponse = await api.get('/auth/me');
-
-            if (authResponse.data.success && authResponse.data.data?.member_info) {
-              set({
-                isAuthenticated: true,
-                user: authResponse.data.data.member_info,
-                error: null,
-                hasInitialized: true,
-              });
-              return; // 성공적으로 인증됨
-            }
-          }
-        } catch (refreshError) {
-          // 토큰 갱신 실패 시 로그아웃 상태로 설정
-        }
-      }
-
-      // 토큰 갱신 실패 또는 다른 에러인 경우 로그아웃 상태로 설정
+      // 인터셉터에서 갱신/재시도를 처리하므로 이곳에서는 실패 시 비인증 상태로 정리
       set({
         isAuthenticated: false,
         user: null,
@@ -133,36 +108,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         });
       }
     } catch (error: any) {
-      // 401 에러인 경우 토큰 갱신을 시도
-      if (error?.response?.status === 401) {
-        try {
-          // 토큰 갱신 시도 (기본 axios 사용, 인터셉터 제외)
-          const refreshResponse = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/auth/refresh`,
-            {},
-            { withCredentials: true },
-          );
-
-          if (refreshResponse.data.success) {
-            // 토큰 갱신 성공 시 다시 인증 확인
-            const authResponse = await api.get('/auth/me');
-
-            if (authResponse.data.success && authResponse.data.data?.member_info) {
-              set({
-                isAuthenticated: true,
-                user: authResponse.data.data.member_info,
-                error: null,
-                hasInitialized: true, // 초기화 완료 표시
-              });
-              return; // 성공적으로 인증됨
-            }
-          }
-        } catch (refreshError) {
-          // 토큰 갱신 실패 시 로그아웃 상태로 설정
-        }
-      }
-
-      // 토큰 갱신 실패 또는 다른 에러인 경우 로그아웃 상태로 설정
+      // 인터셉터가 재시도를 실패한 경우로 간주하고 비인증 상태로 설정
       set({
         isAuthenticated: false,
         user: null,

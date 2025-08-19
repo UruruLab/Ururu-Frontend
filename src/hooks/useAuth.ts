@@ -5,7 +5,8 @@ import type { UserInfo, SellerSignupData } from '@/types/auth';
 
 // 소셜 로그인 훅
 export const useSocialLogin = () => {
-  const { setLoading, setError } = useAuthStore();
+  const setLoading = useAuthStore((s) => s.setLoading);
+  const setError = useAuthStore((s) => s.setError);
 
   const initiateSocialLogin = useCallback(
     async (provider: 'kakao' | 'google') => {
@@ -32,7 +33,10 @@ export const useSocialLogin = () => {
 
 // 판매자 로그인 훅
 export const useSellerLogin = () => {
-  const { setLoading, setError, login, checkAuth } = useAuthStore();
+  const setLoading = useAuthStore((s) => s.setLoading);
+  const setError = useAuthStore((s) => s.setError);
+  const login = useAuthStore((s) => s.login);
+  const checkAuth = useAuthStore((s) => s.checkAuth);
 
   const sellerLogin = useCallback(
     async (email: string, password: string) => {
@@ -65,7 +69,9 @@ export const useSellerLogin = () => {
 
 // 판매자 회원가입 훅
 export const useSellerSignup = () => {
-  const { setLoading, setError, login } = useAuthStore();
+  const setLoading = useAuthStore((s) => s.setLoading);
+  const setError = useAuthStore((s) => s.setError);
+  const login = useAuthStore((s) => s.login);
 
   const sellerSignup = useCallback(
     async (signupData: SellerSignupData) => {
@@ -93,7 +99,7 @@ export const useSellerSignup = () => {
 
 // 중복 체크 훅
 export const useAvailabilityCheck = () => {
-  const { setError } = useAuthStore();
+  const setError = useAuthStore((s) => s.setError);
 
   const checkEmail = useCallback(
     async (email: string): Promise<boolean> => {
@@ -142,7 +148,8 @@ export const useAvailabilityCheck = () => {
 
 // 로그아웃 훅
 export const useLogout = () => {
-  const { logout, user } = useAuthStore();
+  const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
 
   const handleLogout = useCallback(async () => {
     try {
@@ -166,7 +173,8 @@ export const useLogout = () => {
 
 // 판매자 프로필 조회 훅
 export const useSellerProfile = () => {
-  const { setLoading, setError } = useAuthStore();
+  const setLoading = useAuthStore((s) => s.setLoading);
+  const setError = useAuthStore((s) => s.setError);
 
   const getSellerProfile = useCallback(
     async (sellerId: number) => {
