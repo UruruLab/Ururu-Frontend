@@ -9,7 +9,7 @@ export default function AuthErrorPage() {
   const router = useRouter();
 
   const handleRetry = () => {
-    router.push('/login');
+    router.replace('/login');
   };
 
   return (

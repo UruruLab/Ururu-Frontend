@@ -23,14 +23,14 @@ const AuthCallbackContent = () => {
       // 탈퇴한 회원인 경우
       if (result === 'error' && reason === 'withdrawn_member') {
         // 메인 페이지로 이동 (파라미터 포함)
-        router.push(`/?result=error&reason=withdrawn_member&provider=${provider || 'unknown'}`);
+        router.replace(`/?result=error&reason=withdrawn_member&provider=${provider || 'unknown'}`);
         return;
       }
 
       // 기타 에러인 경우
       if (result === 'error') {
         console.error('Auth error:', reason);
-        router.push('/login?error=auth_failed');
+        router.replace('/login?error=auth_failed');
         return;
       }
 
@@ -41,16 +41,16 @@ const AuthCallbackContent = () => {
 
         if (user) {
           if (user.user_type === 'SELLER') {
-            router.push('/seller');
+            router.replace('/seller');
           } else {
-            router.push('/mypage');
+            router.replace('/mypage');
           }
         } else {
           throw new Error('Invalid auth response structure');
         }
       } catch (error) {
         console.error('Auth status check failed:', error);
-        router.push('/login?error=auth_failed');
+        router.replace('/login?error=auth_failed');
       }
     };
 

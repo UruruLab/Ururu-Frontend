@@ -80,7 +80,7 @@ export const useAddress = () => {
             isDefault: addressData.isDefault,
           });
         }
-        router.push('/mypage/address');
+        router.replace('/mypage/address');
       } catch (err: any) {
         setErrorDialogTitle(isEditMode ? '배송지 수정 실패' : '배송지 등록 실패');
         setErrorDialogMessage(
