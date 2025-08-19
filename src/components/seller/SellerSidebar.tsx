@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
@@ -17,6 +18,7 @@ import {
 import { cn } from '@/lib/utils';
 import { SELLER_PROFILE } from '@/data/seller';
 import { useLogout } from '@/hooks/useAuth';
+import { LogoutConfirmDialog } from '@/components/common';
 
 interface SidebarItem {
   icon: React.ReactNode;
@@ -74,10 +76,22 @@ const sidebarItems: SidebarItem[] = [
 
 export function SellerSidebar() {
   const pathname = usePathname();
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogoutClick = async () => {
-    await handleLogout();
+  const handleLogoutClick = () => {
+    setIsLogoutDialogOpen(true);
+  };
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutDialogOpen(false);
+    }
   };
 
   return (
@@ -138,6 +152,14 @@ export function SellerSidebar() {
           로그아웃
         </button>
       </div>
+
+      {/* 로그아웃 확인 다이얼로그 */}
+      <LogoutConfirmDialog
+        isOpen={isLogoutDialogOpen}
+        onOpenChange={setIsLogoutDialogOpen}
+        onConfirm={handleLogoutConfirm}
+        isLoading={isLoggingOut}
+      />
     </aside>
   );
 }

@@ -29,7 +29,7 @@ import type {
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ProductService } from '@/services/productService';
 import { SuccessDialog } from '@/components/common/SuccessDialog';
 import { ErrorDialog } from '@/components/common/ErrorDialog';
@@ -339,7 +339,7 @@ export function ProductRegistration({ categories, tags }: ProductRegistrationPro
             {/* 카테고리 */}
             <FormField label="카테고리" required>
               {isLoading ? (
-                <LoadingSkeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
               ) : error ? (
                 <div className="text-sm text-red-500">카테고리 정보를 불러오지 못했습니다.</div>
               ) : (
@@ -423,7 +423,7 @@ export function ProductRegistration({ categories, tags }: ProductRegistrationPro
             {/* 태그 */}
             <FormField label={`태그 (${selectedTags.length}/3)`} required>
               {isLoading ? (
-                <LoadingSkeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
               ) : error ? (
                 <div className="text-sm text-red-500">태그 정보를 불러오지 못했습니다.</div>
               ) : (

@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { NoFooterLayout } from '@/components/layout/layouts';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import { usePaymentSuccess } from '@/hooks/usePayment';
 
@@ -84,7 +84,7 @@ function PaymentSuccessContent() {
       <NoFooterLayout>
         <div className="container mx-auto max-w-4xl px-6 py-8 md:px-8 md:py-12">
           <div className="flex flex-col items-center justify-center py-16">
-            <LoadingSkeleton lines={3} className="mb-4 h-8 w-64" />
+            <Skeleton className="mb-4 h-8 w-64" />
             <div className="text-center">
               <div className="mb-2 text-lg font-medium text-text-100">결제 승인 중...</div>
               <div className="text-sm text-text-200">잠시만 기다려 주세요.</div>
@@ -189,7 +189,7 @@ function PaymentSuccessContent() {
 
 export default function PaymentSuccessPage() {
   return (
-    <Suspense fallback={<LoadingSkeleton lines={5} className="h-screen" />}>
+    <Suspense fallback={<Skeleton className="h-screen" />}>
       <PaymentSuccessContent />
     </Suspense>
   );

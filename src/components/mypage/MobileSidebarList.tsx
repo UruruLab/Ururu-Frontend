@@ -1,18 +1,30 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
-import { SidebarItem } from '@/components/common';
+import { SidebarItem, LogoutConfirmDialog } from '@/components/common';
 import { myPageData } from '@/data/mypage';
 import { useLogout } from '@/hooks/useAuth';
 
 export function MobileSidebarList() {
   const { navigationSections } = myPageData;
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // 로그아웃 핸들러
-  const handleLogoutClick = async () => {
-    await handleLogout();
+  const handleLogoutClick = () => {
+    setIsLogoutDialogOpen(true);
+  };
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutDialogOpen(false);
+    }
   };
 
   // 아이템에 onClick 핸들러 추가
@@ -39,6 +51,14 @@ export function MobileSidebarList() {
           {idx < processedSections.length - 1 && <Separator className="my-2 bg-bg-300" />}
         </React.Fragment>
       ))}
+
+      {/* 로그아웃 확인 다이얼로그 */}
+      <LogoutConfirmDialog
+        isOpen={isLogoutDialogOpen}
+        onOpenChange={setIsLogoutDialogOpen}
+        onConfirm={handleLogoutConfirm}
+        isLoading={isLoggingOut}
+      />
     </aside>
   );
 }

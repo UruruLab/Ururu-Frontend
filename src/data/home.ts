@@ -14,22 +14,22 @@ export const heroBanners: HeroBanner[] = [
   {
     id: '1',
     image:
-      'https://image.oliveyoung.co.kr/uploads/images/display/90000010001/397/961135372203537732.jpg',
+      'https://i.pinimg.com/736x/91/e5/92/91e592b607387d2705ad20c0f8265859.jpg',
   },
   {
     id: '2',
     image:
-      'https://image.oliveyoung.co.kr/uploads/images/display/90000010001/397/1559266877485266171.jpg',
+      'https://i.pinimg.com/1200x/96/1d/2e/961d2e94d643be0afac8cf4a40823a0f.jpg',
   },
   {
     id: '3',
     image:
-      'https://image.oliveyoung.co.kr/uploads/images/display/90000010001/397/4670995120691803997.jpg',
+      'https://i.pinimg.com/1200x/68/aa/60/68aa60d173d820f82e801eb6603b1359.jpg',
   },
   {
     id: '4',
     image:
-      'https://image.oliveyoung.co.kr/uploads/images/display/90000021579/263/5543181993520385572.jpg',
+      'https://i.pinimg.com/1200x/34/d9/e5/34d9e53334e82e37074be263a1b1bf01.jpg',
   },
 ];
 

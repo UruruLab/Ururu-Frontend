@@ -11,7 +11,7 @@ import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function LoginPageContent() {
-  const { loginType, setLoginType, isLoading, error, isAuthenticated, user } = useAuthStore();
+  const { loginType, setLoginType, error, isAuthenticated, user } = useAuthStore();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -27,9 +27,9 @@ function LoginPageContent() {
   useEffect(() => {
     if (isAuthenticated && user) {
       if (user.user_type === 'SELLER') {
-        router.push('/seller');
+        router.replace('/seller');
       } else {
-        router.push('/mypage');
+        router.replace('/mypage');
       }
     }
   }, [isAuthenticated, user, router]);

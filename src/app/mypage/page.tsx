@@ -5,6 +5,7 @@ import { MyPageLayout } from '@/components/mypage/MyPageLayout';
 import { ProfileCard } from '@/components/mypage/ProfileCard';
 import { BeautyProfileSummary } from '@/components/mypage/beauty-profile';
 import { MobileSidebarList } from '@/components/mypage/MobileSidebarList';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useMyPage } from '@/hooks/useMyPage';
 import { useAuthStore } from '@/store';
 import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -26,19 +27,14 @@ function MyPageContent() {
       try {
         setLoading(true);
 
-        // 마이페이지 데이터 조회
         const mypageResponse = await api.get('/members/me/mypage');
         setMypageData(mypageResponse.data.data);
 
-        // 뷰티프로필 데이터 조회
         try {
           const beautyProfileResponse = await getBeautyProfile();
           setBeautyProfileData(beautyProfileResponse);
         } catch (beautyError) {
           // 뷰티프로필이 없는 경우 무시
-          if (process.env.NODE_ENV === 'development') {
-            console.log('뷰티프로필이 없습니다.');
-          }
         }
 
         setError(null);
@@ -74,12 +70,76 @@ function MyPageContent() {
       }
     : null;
 
-  // 로딩 중
   if (loading) {
     return (
       <MyPageLayout>
-        <div className="flex flex-1 items-center justify-center py-20">
-          <div className="text-sm text-text-200">로딩 중...</div>
+        <div className="space-y-6">
+          {/* 프로필 카드 스켈레톤 */}
+          <div className="w-full rounded-2xl px-4 py-6 md:px-8">
+            <div className="mb-6 flex items-center justify-between">
+              {/* 아바타/닉네임/뱃지 스켈레톤 */}
+              <div className="flex items-center gap-4 md:gap-6">
+                <Skeleton className="h-12 w-12 rounded-full md:h-16 md:w-16" />
+                <div>
+                  <Skeleton className="mb-1 h-6 w-24 md:h-8 md:w-32" />
+                  <div className="flex gap-1 md:gap-2">
+                    <Skeleton className="h-5 w-12 rounded-full md:h-6 md:w-16" />
+                    <Skeleton className="h-5 w-12 rounded-full md:h-6 md:w-16" />
+                  </div>
+                </div>
+              </div>
+              {/* 포인트 스켈레톤 */}
+              <div className="flex flex-col items-center gap-2">
+                <Skeleton className="mb-1 h-6 w-6 rounded-full md:h-8 md:w-8" />
+                <Skeleton className="h-3 w-16" />
+              </div>
+            </div>
+            {/* 하단 버튼 스켈레톤 */}
+            <div className="flex w-full flex-col gap-2 md:flex-row md:gap-4">
+              <Skeleton className="h-10 w-full md:h-10" />
+              <Skeleton className="h-10 w-full md:h-10" />
+            </div>
+          </div>
+
+          {/* 뷰티 프로필 스켈레톤 */}
+          <div className="rounded-xl p-6">
+            <div className="mb-4 flex items-center gap-2">
+              <Skeleton className="h-5 w-5" />
+              <Skeleton className="h-6 w-32" />
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* 기본 정보 스켈레톤 */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-20" />
+                </div>
+                <div className="space-y-2">
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <div key={index} className="flex justify-between">
+                      <Skeleton className="h-4 w-16" />
+                      <Skeleton className="h-4 w-20" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* 관심사 및 설정 스켈레톤 */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+                <div className="space-y-2">
+                  {Array.from({ length: 2 }).map((_, index) => (
+                    <div key={index} className="flex justify-between">
+                      <Skeleton className="h-4 w-20" />
+                      <Skeleton className="h-4 w-24" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </MyPageLayout>
     );

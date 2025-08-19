@@ -189,7 +189,7 @@ export const useProfileEdit = () => {
 
   const closeSuccessDialog = useCallback(() => {
     setSuccessDialog((prev) => ({ ...prev, isOpen: false }));
-    router.push('/mypage');
+    router.replace('/mypage');
   }, [router]);
 
   return {

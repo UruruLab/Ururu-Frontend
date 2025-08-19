@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
-import { SidebarItem } from '@/components/common';
+import { SidebarItem, LogoutConfirmDialog } from '@/components/common';
 import { FORM_STYLES } from '@/constants/form-styles';
 import { myPageData } from '@/data/mypage';
 import { useLogout } from '@/hooks/useAuth';
@@ -18,17 +18,29 @@ import { useRouter } from 'next/navigation';
 
 export function Sidebar() {
   const { navigationSections } = myPageData;
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
   const router = useRouter();
 
   // 다이얼로그 상태
   const [isWithdrawDialogOpen, setIsWithdrawDialogOpen] = useState(false);
   const [withdrawError, setWithdrawError] = useState<string | null>(null);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // 로그아웃 핸들러
-  const handleLogoutClick = async () => {
-    await handleLogout();
+  const handleLogoutClick = () => {
+    setIsLogoutDialogOpen(true);
+  };
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutDialogOpen(false);
+    }
   };
 
   // 회원탈퇴 핸들러
@@ -43,7 +55,7 @@ export function Sidebar() {
     try {
       await deleteMe();
       setIsWithdrawDialogOpen(false);
-      await handleLogout();
+      await logout();
       router.push('/');
     } catch (err: any) {
       setWithdrawError(err?.response?.data?.message || err?.message || '탈퇴에 실패했습니다.');
@@ -112,6 +124,14 @@ export function Sidebar() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* 로그아웃 확인 다이얼로그 */}
+      <LogoutConfirmDialog
+        isOpen={isLogoutDialogOpen}
+        onOpenChange={setIsLogoutDialogOpen}
+        onConfirm={handleLogoutConfirm}
+        isLoading={isLoggingOut}
+      />
     </>
   );
 }

@@ -192,8 +192,7 @@ export function useAiPersonalizedProducts() {
           setProducts(uniqueProducts);
         }
       } catch (e) {
-        console.error('API 호출 에러:', e);
-        setError('상품을 불러오는데 실패했습니다.');
+        setError('추천 상품을 불러오는데 실패했습니다.');
         setProducts([]);
       } finally {
         setLoading(false);

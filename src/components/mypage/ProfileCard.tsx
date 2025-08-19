@@ -24,12 +24,6 @@ export function ProfileCard({ user }: ProfileCardProps) {
   const skinTypeLabel = SKIN_TYPE_OPTIONS.find((opt) => opt.value === user?.skin_type)?.label;
   const skinToneLabel = SKIN_TONE_OPTIONS.find((opt) => opt.value === user?.skin_tone)?.label;
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log('ProfileCard user:', user);
-    console.log('skin_type:', user?.skin_type, 'skin_tone:', user?.skin_tone);
-    console.log('skinTypeLabel:', skinTypeLabel, 'skinToneLabel:', skinToneLabel);
-  }
-
   return (
     <Card className="w-full rounded-2xl border-0 bg-bg-100 px-4 py-6 shadow-sm md:px-8">
       <CardContent className="p-0">

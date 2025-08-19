@@ -221,7 +221,7 @@ function CategoryPage() {
       {!sub && (
         <>
           {/* 모바일: 세부 카테고리 선택 그리드 */}
-          <div className="container block py-6 md:hidden">
+          <div className="container mx-auto max-w-[1280px] px-6 py-8 md:hidden md:px-9 md:py-10 xl:px-12">
             {/* 헤더 */}
             <div className="mb-6">
               <h1 className="text-2xl font-semibold text-text-100">카테고리</h1>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AuthService } from '@/services/authService';
 import { useAuthStore } from '@/store';
 import { Button } from '@/components/ui/button';
@@ -12,17 +13,14 @@ interface SellerLoginProps {
   className?: string;
 }
 
-export const SellerLogin: React.FC<SellerLoginProps> = ({
-  onSuccess,
-  onError,
-  className = ''
-}) => {
+export const SellerLogin: React.FC<SellerLoginProps> = ({ onSuccess, onError, className = '' }) => {
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    password: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuthStore();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,27 +30,28 @@ export const SellerLogin: React.FC<SellerLoginProps> = ({
 
       const response = await AuthService.sellerLogin(credentials);
       login(response.member_info);
-      onSuccess?.();
 
+      // 성공 시 즉시 판매자 페이지로 리다이렉트
+      router.replace('/seller');
+      onSuccess?.();
     } catch (error) {
       console.error('Seller login error:', error);
+      setIsLoading(false); // 에러 시에만 로딩 상태 해제
       onError?.(error instanceof Error ? error.message : '로그인에 실패했습니다.');
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-text-100 mb-2">
+        <label htmlFor="email" className="mb-2 block text-sm font-medium text-text-100">
           이메일
         </label>
         <Input
           type="email"
           id="email"
           value={credentials.email}
-          onChange={(e) => setCredentials(prev => ({ ...prev, email: e.target.value }))}
+          onChange={(e) => setCredentials((prev) => ({ ...prev, email: e.target.value }))}
           required
           className="h-12 rounded-lg border-bg-300 bg-bg-100 px-4 py-3 text-base text-text-100 placeholder:text-text-300 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-0"
           placeholder="이메일을 입력하세요"
@@ -61,14 +60,14 @@ export const SellerLogin: React.FC<SellerLoginProps> = ({
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-text-100 mb-2">
+        <label htmlFor="password" className="mb-2 block text-sm font-medium text-text-100">
           비밀번호
         </label>
         <Input
           type="password"
           id="password"
           value={credentials.password}
-          onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
+          onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
           required
           className="h-12 rounded-lg border-bg-300 bg-bg-100 px-4 py-3 text-base text-text-100 placeholder:text-text-300 focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-0"
           placeholder="비밀번호를 입력하세요"

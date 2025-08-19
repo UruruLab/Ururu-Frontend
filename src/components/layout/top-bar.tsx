@@ -1,17 +1,31 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { useAuthStore } from '@/store';
 import { useLogout } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { LogoutConfirmDialog } from '@/components/common';
 
 export function TopBar() {
   const { isAuthenticated, user } = useAuthStore();
-  const { handleLogout } = useLogout();
+  const { logout } = useLogout();
   const router = useRouter();
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogoutClick = async () => {
-    await handleLogout();
+  const handleLogoutClick = () => {
+    setIsLogoutDialogOpen(true);
+  };
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutDialogOpen(false);
+    }
   };
 
   const handleAuthRequiredClick = (href: string) => {
@@ -69,6 +83,14 @@ export function TopBar() {
           </nav>
         </div>
       </div>
+
+      {/* 로그아웃 확인 다이얼로그 */}
+      <LogoutConfirmDialog
+        isOpen={isLogoutDialogOpen}
+        onOpenChange={setIsLogoutDialogOpen}
+        onConfirm={handleLogoutConfirm}
+        isLoading={isLoggingOut}
+      />
     </div>
   );
 }
