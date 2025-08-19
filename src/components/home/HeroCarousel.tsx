@@ -25,7 +25,7 @@ export function HeroCarousel({ banners, className = '' }: HeroCarouselProps) {
 
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-2xl ${className}`}
+      className={`relative w-full overflow-hidden rounded-lg ${className}`}
       style={{ height: '100%' }}
     >
       {/* 배너 슬라이드 - 부모 높이 100% */}
