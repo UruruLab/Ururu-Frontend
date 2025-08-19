@@ -71,7 +71,6 @@ export const useSellerLogin = () => {
 export const useSellerSignup = () => {
   const setLoading = useAuthStore((s) => s.setLoading);
   const setError = useAuthStore((s) => s.setError);
-  const login = useAuthStore((s) => s.login);
 
   const sellerSignup = useCallback(
     async (signupData: SellerSignupData) => {
@@ -80,7 +79,7 @@ export const useSellerSignup = () => {
         setError(null);
 
         const user = await AuthService.sellerSignup(signupData);
-        login(user);
+        // 회원가입 후 자동 로그인하지 않음 - 로그인 페이지로 이동하도록 함
 
         return user;
       } catch (error) {
@@ -91,7 +90,7 @@ export const useSellerSignup = () => {
         setLoading(false);
       }
     },
-    [setLoading, setError, login],
+    [setLoading, setError],
   );
 
   return { sellerSignup };
@@ -162,9 +161,14 @@ export const useLogout = () => {
 
       // 클라이언트 상태 초기화
       logout();
+
+      // 로그아웃 후 홈으로 이동
+      window.location.href = '/';
     } catch (error) {
       // 에러가 발생해도 클라이언트 상태는 초기화
       logout();
+      // 에러가 발생해도 홈으로 이동
+      window.location.href = '/';
     }
   }, [logout, user]);
 
