@@ -117,13 +117,13 @@ function AddressPageContent() {
 
         {/* 배송지 리스트 */}
         <div className="flex flex-col gap-4">
-          {!addresses || addresses.length === 0 ? (
+          {!addresses || !Array.isArray(addresses) || addresses.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8">
               <p className="text-center text-text-300">등록된 배송지가 없습니다.</p>
             </div>
           ) : (
-            (Array.isArray(addresses) ? addresses : [])
-              .sort((a, b) => (b.is_default ? 1 : 0) - (a.is_default ? 1 : 0))
+            [...addresses]
+              .sort((a, b) => Number(b.is_default) - Number(a.is_default))
               .map((address) => (
                 <AddressCard key={address.id} address={address} onDelete={handleDeleteClick} />
               ))
