@@ -372,9 +372,6 @@ function CategoryPage() {
                 )}
               </div>
             )}
-            {loading && products.length === 0 && (
-              <div className="text-sm text-text-200">로딩 중...</div>
-            )}
           </div>
         )}
       </div>

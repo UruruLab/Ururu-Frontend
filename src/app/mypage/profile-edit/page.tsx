@@ -6,6 +6,7 @@ import { MyPageLayout } from '@/components/mypage/MyPageLayout';
 import { ProfileFormFields, ProfileImageUpload } from '@/components/mypage/profile-edit';
 import { Card, CardContent } from '@/components/ui/card';
 import { PageHeader, ErrorDialog, SuccessDialog } from '@/components/common';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FORM_STYLES } from '@/constants/form-styles';
 import { useProfileEdit } from '@/hooks/useProfileEdit';
 import { AuthGuard } from '@/components/auth/AuthGuard';
@@ -40,9 +41,65 @@ function ProfileEditPageContent() {
   if (loading) {
     return (
       <MyPageLayout>
-        <div className="flex flex-1 items-center justify-center py-20">
-          <div className="text-sm text-text-200">로딩 중...</div>
-        </div>
+        <Card className={FORM_STYLES.card.base}>
+          <CardContent className={FORM_STYLES.card.content}>
+            {/* 페이지 헤더 */}
+            <PageHeader title="프로필 수정" />
+
+            {/* 프로필 이미지 */}
+            <div className="relative mb-8 flex flex-col items-center">
+              <Skeleton className="h-28 w-28 rounded-full md:h-36 md:w-36" />
+            </div>
+
+            {/* 폼 필드들 */}
+            <div className="w-full space-y-6">
+              {/* 닉네임 */}
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-16" />
+                <div className="flex gap-2">
+                  <Skeleton className="h-12 flex-1" />
+                  <Skeleton className="h-12 w-32" />
+                </div>
+              </div>
+
+              {/* 성별 */}
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-12" />
+                <div className="flex gap-2">
+                  <Skeleton className="h-12 flex-1" />
+                  <Skeleton className="h-12 flex-1" />
+                </div>
+              </div>
+
+              {/* 생년월일 */}
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-20" />
+                <Skeleton className="h-12 w-full" />
+              </div>
+
+              {/* 휴대폰 번호 */}
+              <div className="space-y-2">
+                <Skeleton className="h-5 w-24" />
+                <Skeleton className="h-12 w-full" />
+              </div>
+
+              {/* 약관 동의 */}
+              <div className="mt-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-48" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-4 w-4" />
+                  <Skeleton className="h-4 w-56" />
+                </div>
+              </div>
+
+              {/* 저장 버튼 */}
+              <Skeleton className="mt-6 h-12 w-32" />
+            </div>
+          </CardContent>
+        </Card>
       </MyPageLayout>
     );
   }
